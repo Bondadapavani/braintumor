@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>🧠 Brain Tumor Detection</h1>
+        <p class="subtitle">Upload MRI image</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label class="upload-box">
+                <input type="file" name="file" id="fileInput" required>
+                <span>Click or Upload MRI</span>
+            </label>
+
+            <div class="preview">
+                <img id="previewImage" style="display:none;">
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <p class="prediction">{{ result }}</p>
+            <p class="confidence">Confidence: {{ confidence }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.getElementById("fileInput").addEventListener("change", function(e){
+    let img = document.getElementById("previewImage");
+    img.src = URL.createObjectURL(e.target.files[0]);
+    img.style.display = "block";
+});
+</script>
+
+</body>
+</html>
